@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TECCHNEX · CAM-RONDAS LAB-05 · FOTO-01</title>
+<title>TECCHNEX · CAM-RONDAS LAB-10 · TARJETAS POR COLOR + QR/NFC</title>
 <style>
 :root{--navy:#123b5d;--cyan:#0d8291;--bg:#f2f6f9;--ink:#203747;--muted:#617582;--line:#d5e0e7;--red:#b33a4b;--green:#147d64;--gold:#b9770e}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px Arial,sans-serif}
@@ -14,42 +14,117 @@ main{max-width:1100px;margin:22px auto;padding:0 14px 36px}.notice{padding:12px 
 label{display:block;font-size:13px;font-weight:bold;color:var(--muted);margin:10px 0 5px}input,select,textarea{width:100%;border:1px solid #bdccd5;border-radius:8px;padding:11px;font:inherit;background:white;color:var(--ink)}textarea{min-height:74px;resize:vertical}
 button{border:0;border-radius:8px;background:var(--navy);color:white;padding:10px 13px;font-weight:bold;cursor:pointer;margin:7px 6px 0 0}button.secondary{background:#e8f1f5;color:var(--navy)}button.cyan{background:var(--cyan)}button.danger{background:var(--red)}button:disabled{opacity:.45;cursor:not-allowed}
 .row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:150px}.pill{display:inline-block;border-radius:30px;padding:4px 9px;background:#e8f1f5;color:var(--navy);font-size:12px;font-weight:bold}.pill.ok{background:#e1f5ed;color:var(--green)}.pill.warn{background:#fff0d7;color:var(--gold)}
-.hidden{display:none!important}.full{grid-column:1/-1}.muted{color:var(--muted);font-size:13px;line-height:1.45}.list{display:grid;gap:8px}.item{border:1px solid var(--line);border-radius:10px;padding:11px;display:flex;gap:12px;align-items:center;justify-content:space-between}.item strong{display:block}.item small{display:block;color:var(--muted);margin-top:4px}.status{padding:10px 12px;background:#e8f6f7;border-radius:8px;color:var(--navy);margin:10px 0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px}.stat b{font-size:23px;color:var(--navy);display:block}.stat span{font-size:12px;color:var(--muted)}
+.hidden{display:none!important}.full{grid-column:1/-1}.muted{color:var(--muted);font-size:13px;line-height:1.45}.list{display:grid;gap:8px}.item{border:1px solid var(--line);border-radius:10px;padding:11px;display:flex;gap:12px;align-items:center;justify-content:space-between}.item strong{display:block}.item small{display:block;color:var(--muted);margin-top:4px}.status{padding:10px 12px;background:#e8f6f7;border-radius:8px;color:var(--navy);margin:10px 0}.session-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.session-bar #sessionText{flex:1;min-width:200px}.session-bar #exitApp{margin:0;white-space:nowrap}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px}.stat b{font-size:23px;color:var(--navy);display:block}.stat span{font-size:12px;color:var(--muted)}
 table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#eef4f7;color:var(--navy)}
 footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
 @media(max-width:760px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.stats{grid-template-columns:repeat(3,1fr)}.item{align-items:flex-start;flex-direction:column}}
+
+/* CAM-RONDAS-MOVIL-01: tarjetas de acceso rápido adaptables a pantallas pequeñas. */
+.mobile-menu{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 18px}
+.menu-card{appearance:none;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-height:112px;margin:0;padding:15px;background:#fff;color:var(--navy);border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 14px #123b5d0c;transition:transform .15s ease,border-color .15s ease}
+.menu-card:hover{transform:translateY(-2px);border-color:var(--cyan)}
+.menu-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#e7f6f7;font-size:23px}
+.menu-card strong{font-size:14px;line-height:1.25}
+.menu-card small{font-size:12px;font-weight:normal;color:var(--muted);line-height:1.3}
+.menu-heading{font-size:13px;color:var(--muted);font-weight:bold;letter-spacing:.04em;text-transform:uppercase;margin:0 0 10px}
+@media(max-width:760px){
+ main{margin:12px auto;padding:0 12px 28px}
+ header{padding:16px}
+ .mobile-menu{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .menu-card{min-height:116px;padding:13px}
+ .menu-icon{width:40px;height:40px}
+ .stats{gap:7px}
+ .stat{padding:10px 8px;border-radius:10px}
+ .stat b{font-size:20px}
+ .stat span{font-size:11px;line-height:1.2;display:block}
+ .card{padding:15px;border-radius:13px}
+ button{min-height:42px}
+ input,select,textarea{font-size:16px}
+}
+@media(max-width:360px){.mobile-menu{gap:8px}.menu-card{padding:11px;min-height:108px}.menu-card strong{font-size:13px}}
+/* CAM-RONDAS-MOVIL-03: cada tarjeta abre su propio formulario, como en CAM-ACCESO. */
+.grid > section { display:none; }
+.grid > section.card.card-open { display:block; grid-column:1/-1; }
+.card-back{display:inline-flex;align-items:center;gap:6px;margin:0 0 14px;background:#e8f1f5;color:var(--navy)}
+/* CAM-RONDAS-MOVIL-02: tarjetas con colores semánticos e información operativa dentro de cada tarjeta. */
+.menu-card{position:relative;border:1px solid transparent;border-left:5px solid var(--tile);background:var(--tile-bg);color:var(--tile-ink);min-height:145px;white-space:normal}
+.menu-card .menu-icon{background:#ffffffc9;color:var(--tile-ink)}
+.menu-card small{color:var(--tile-ink);opacity:.88}
+.menu-card .tile-meta{display:block;margin-top:auto;padding-top:7px;font-size:11px;font-weight:bold;color:var(--tile-ink);line-height:1.3}
+.menu-card.tile-round{--tile:#1769aa;--tile-bg:#e8f3ff;--tile-ink:#123b5d}
+.menu-card.tile-scan{--tile:#07836d;--tile-bg:#e3f7ef;--tile-ink:#075b4c}
+.menu-card.tile-issue{--tile:#c56b13;--tile-bg:#fff0df;--tile-ink:#79400a}
+.menu-card.tile-vehicle{--tile:#7a52b3;--tile-bg:#f1eaff;--tile-ink:#4f3479}
+.menu-card.tile-history{--tile:#526778;--tile-bg:#eaf0f4;--tile-ink:#314653}
+.menu-card.tile-backup{--tile:#187b9c;--tile-bg:#e3f6fb;--tile-ink:#12556c}
+.menu-card.tile-delete{--tile:#b33a4b;--tile-bg:#ffebee;--tile-ink:#842536}
+#qrNfcCard{border-top:5px solid #07836d}
+#qrVideo{width:100%;max-height:300px;object-fit:cover;border-radius:12px;background:#102a38;display:none}
+.scan-actions{display:flex;gap:8px;flex-wrap:wrap}.scan-actions button{flex:1;min-width:130px}
+@media(max-width:760px){.menu-card{min-height:142px}.menu-card .tile-meta{font-size:10px}}
+
+
 </style>
 </head>
 <body>
-<header><h1>TECCHNEX · CAM-RONDAS</h1><p>Sistema de Monitoreo y Gestión de Rondas de Seguridad · LAB-05 · Evidencia fotográfica</p></header>
+<header><h1>TECCHNEX · CAM-RONDAS</h1><p>Sistema de Monitoreo y Gestión de Rondas de Seguridad · LAB-12 · Control local de ubicación GPS</p></header>
 <main>
-<div class="notice"><strong>Versión de laboratorio independiente.</strong> Los datos y fotografías se guardan únicamente en este navegador. CAM-RONDAS-FOTO-01 incorpora huellas SHA-256 para las nuevas fotografías y una comprobación local de integridad. Esto no equivale a almacenamiento inmutable ni a una cadena de custodia centralizada: no hay autenticación segura ni sincronización entre dispositivos. GPS requiere permiso y normalmente HTTPS o localhost. No usar para operación de seguridad real.</div>
+<div class="notice"><strong>Versión de laboratorio independiente con menú de tarjetas móvil.</strong> Los datos y fotografías se guardan únicamente en este navegador. CAM-RONDAS-FOTO-01 aplica control reforzado (original, copia sellada, SHA-256 y verificación) a fotografías vinculadas a rondas. El registro de vehículos usa un flujo operativo sencillo, sin protocolo reforzado de evidencia. Todo permanece en este navegador; no hay autenticación real ni almacenamiento inmutable o sincronización central. Laboratorio, no producción.</div>
 <section id="login" class="card">
 <h2>Ingreso al laboratorio</h2><p class="muted">Perfiles de demostración para probar el flujo inicial. No son credenciales de producción.</p>
 <div class="row"><div><label for="user">Usuario</label><select id="user"><option value="Vigilante Demo">Vigilante Demo</option><option value="Supervisor Demo">Supervisor Demo</option><option value="Administrador TIC Demo">Administrador TIC Demo</option></select></div><div><label for="role">Perfil</label><input id="role" value="Vigilante" readonly></div></div>
 <button id="loginBtn">Ingresar al laboratorio</button>
 </section>
 <section id="app" class="hidden">
-<div class="status" id="session"></div>
+<div class="status session-bar" id="session"><span id="sessionText"></span><button id="exitApp" class="secondary" type="button">Finalizar sesión</button></div>
 <div class="stats"><div class="stat"><b id="statRounds">0</b><span>Rondas registradas</span></div><div class="stat"><b id="statPoints">0</b><span>Marcaciones válidas</span></div><div class="stat"><b id="statIssues">0</b><span>Novedades registradas</span></div></div>
+<p class="menu-heading">Accesos rápidos</p>
+<nav class="mobile-menu" aria-label="Menú principal de CAM-RONDAS">
+<button class="menu-card tile-round" type="button" data-target="roundCard"><span class="menu-icon" aria-hidden="true">🛡️</span><strong>Operación de rondas</strong><small>Iniciar, marcar y finalizar</small><span class="tile-meta" id="tileRoundInfo">Sin ronda activa</span></button>
+<button class="menu-card tile-scan" type="button" data-target="qrNfcCard"><span class="menu-icon" aria-hidden="true">▦</span><strong>Marcación QR / NFC</strong><small>Registrar paso en cada punto</small><span class="tile-meta" id="tileScanInfo">Escanea el código del punto</span></button>
+<button class="menu-card tile-issue" type="button" data-target="issueCard"><span class="menu-icon" aria-hidden="true">📸</span><strong>Registrar novedad</strong><small>Descripción y evidencia fotográfica</small><span class="tile-meta" id="tileIssueInfo">0 novedades en esta sesión</span></button>
+<button class="menu-card tile-vehicle" type="button" data-target="parkingCard"><span class="menu-icon" aria-hidden="true">🚗</span><strong>Vehículos visitantes</strong><small>Placa, apartamento y seguimiento</small><span class="tile-meta" id="tileVehicleInfo">0 registros en esta sesión</span></button>
+<button class="menu-card tile-history supervisor-only hidden" type="button" data-target="historyCard"><span class="menu-icon" aria-hidden="true">📋</span><strong>Historial e informes</strong><small>Rondas, evidencias y reportes</small><span class="tile-meta">Solo supervisor</span></button>
+<button class="menu-card tile-backup supervisor-only hidden" type="button" data-action="backup"><span class="menu-icon" aria-hidden="true">💾</span><strong>Crear respaldo</strong><small>Guardar copia de los datos</small><span class="tile-meta">Solo supervisor</span></button>
+<button class="menu-card tile-delete supervisor-only hidden" type="button" data-action="clear"><span class="menu-icon" aria-hidden="true">🗑️</span><strong>Borrar datos</strong><small>Reinicio controlado del laboratorio</small><span class="tile-meta">Confirmación obligatoria</span></button>
+</nav>
 <div class="grid">
+<section class="card full" id="qrNfcCard"><h2>Marcación de ronda por código QR o NFC</h2>
+<p class="muted">Inicie primero una ronda. Escanee el QR del punto o acerque el celular a una etiqueta NFC compatible. Si el dispositivo no admite lectura, ingrese el código del punto manualmente.</p>
+<div class="status" id="scanStatus" aria-live="polite">Esperando una marcación. No hay lectura activa.</div>
+<div class="scan-actions"><button id="startQrScan" class="cyan" type="button">Abrir cámara y leer QR</button><button id="startNfcScan" type="button">Leer etiqueta NFC</button><button id="stopQrScan" class="secondary" type="button" disabled>Detener cámara</button></div>
+<video id="qrVideo" playsinline muted aria-label="Vista de cámara para leer código QR"></video>
+<label for="manualPointCode">Código o nombre del punto (alternativa)</label><div class="row"><input id="manualPointCode" placeholder="Ej. Acceso principal" autocomplete="off"><button id="useManualPoint" class="secondary" type="button">Usar código</button></div>
+<p class="muted">El contenido QR/NFC debe ser el nombre exacto de un punto configurado, o texto JSON con la propiedad <code>point</code>. La lectura selecciona el punto; la marcación se registra aplicando las validaciones vigentes. La lectura real depende de compatibilidad del navegador, HTTPS y permisos del dispositivo.</p>
+<div class="card supervisor-only hidden" id="pointConfigCard" style="margin-top:12px;border:2px solid #6d4bc3"><h3>Configuración de geocerca (solo supervisor)</h3><p class="muted">Configure coordenadas reales de cada punto durante la instalación. No use coordenadas de ejemplo en operación.</p><label for="configPoint">Punto</label><select id="configPoint"><option>Acceso principal</option><option>Parqueadero visitantes</option><option>Perímetro norte</option><option>Cuarto técnico</option><option>Zona común</option></select><div class="row"><div><label for="configLat">Latitud</label><input id="configLat" type="number" step="any" placeholder="Ej. 4.7110"></div><div><label for="configLon">Longitud</label><input id="configLon" type="number" step="any" placeholder="Ej. -74.0721"></div></div><label for="configRadius">Radio permitido (metros, 5–500)</label><input id="configRadius" type="number" min="5" max="500" value="35"><div class="row"><button type="button" id="savePointConfig" class="cyan">Guardar geocerca</button><button type="button" id="removePointConfig" class="secondary">Quitar geocerca</button></div><div id="pointConfigStatus" class="status">Sin configuración cargada.</div></div>
+</section>
 <section class="card" id="roundCard"><h2>1. Operación de rondas</h2>
 <label for="group">Grupo / servicio</label><input id="group" value="Grupo de ronda A">
 <label for="roundName">Nombre de ronda</label><input id="roundName" value="Ronda perimetral">
 <label for="point">Punto de control</label><select id="point"><option value="">Seleccione un punto</option><option>Acceso principal</option><option>Parqueadero visitantes</option><option>Perímetro norte</option><option>Cuarto técnico</option><option>Zona común</option></select>
 <div class="row"><button id="startRound">Iniciar ronda</button><button id="markPoint" class="cyan" disabled>Marcar punto</button><button id="finishRound" class="secondary" disabled>Finalizar ronda</button></div>
-<div class="row"><button id="captureGps" class="secondary">Capturar ubicación GPS</button><button id="clearGps" class="secondary">Quitar ubicación</button></div><div id="gpsStatus" class="status">Ubicación no capturada.</div><p class="muted">La ubicación capturada se asociará a la siguiente marcación y a la novedad guardada. No se ha integrado lectura real de QR/NFC. GPS requiere permiso del dispositivo y contexto seguro.</p><p class="muted">Regla inicial: no se permite repetir un punto en la misma ronda y se aplica un mínimo de 3 minutos entre marcaciones válidas.</p>
+<div class="row"><button id="captureGps" class="secondary">Capturar ubicación GPS</button><button id="clearGps" class="secondary">Quitar ubicación</button></div><div id="gpsStatus" class="status">Ubicación no capturada.</div><p class="muted">La ubicación capturada se asociará a la siguiente marcación y a la novedad guardada. La lectura QR/NFC está disponible en la tarjeta «Marcación QR / NFC» cuando el dispositivo y navegador la admiten. GPS requiere permiso del dispositivo y contexto seguro.</p><p class="muted">Regla inicial: no se permite repetir un punto en la misma ronda y se aplica un mínimo de 3 minutos entre marcaciones válidas.</p>
 <div id="roundStatus" class="status">No hay una ronda activa.</div>
 </section>
-<section class="card"><h2>2. Minuta y novedades</h2>
+<section class="card" id="issueCard"><h2>2. Minuta y novedades</h2>
 <label for="issueType">Tipo de novedad</label><select id="issueType"><option>Seguridad</option><option>Convivencia</option><option>Vehículo en parqueadero de visitantes</option><option>Daño / mantenimiento</option><option>Otra</option></select>
 <label for="issueText">Descripción</label><textarea id="issueText" placeholder="Describa la novedad observada"></textarea>
 <label for="photo">Fotografía de evidencia (opcional)</label><input id="photo" type="file" accept="image/*" capture="environment">
 <p class="muted">La foto seleccionada se procesa en el navegador y se añade un sello visible con fecha y hora. En este laboratorio la evidencia no se envía a ningún servidor.</p>
 <button id="saveIssue" class="cyan">Guardar novedad</button><div id="photoPreview" aria-live="polite"></div><div id="locationIssue" class="muted">La ubicación actual se adjuntará si fue capturada.</div>
 </section>
-<section class="card full"><h2>3. Historial de esta sesión y del navegador</h2>
-<div class="row"><button id="export" class="secondary">Exportar historial CSV</button><button id="exportExcel" class="cyan">Generar informe Excel (.xlsx)</button><button id="backup" class="secondary">Crear respaldo JSON</button><button id="clear" class="danger">Borrar datos de laboratorio</button></div><h3>Fotografías recuperables</h3><p class="muted">Las fotografías quedan almacenadas en este navegador y vinculadas a su novedad. Las nuevas capturas guardan una huella SHA-256 del original conservado y de la versión sellada. Use «Verificar integridad» para comparar los archivos recuperados con sus huellas registradas. Las fotos antiguas sin huella no pueden certificarse retroactivamente.</p><div id="gallery" class="list"></div>
+<section class="card full" id="parkingCard"><h2>3. Vehículos en parqueadero de visitantes</h2>
+<p class="muted">Registro operativo sencillo. Si un vehículo permanece varios días, registre cada nueva observación para conservar la cronología.</p>
+<div class="row"><div><label for="vehiclePlate">Placa del vehículo</label><input id="vehiclePlate" maxlength="12" placeholder="Ej. ABC123"></div><div><label for="vehicleApartment">Apartamento relacionado</label><input id="vehicleApartment" placeholder="Torre / apartamento"></div></div>
+<label for="vehicleStatus">Estado</label><select id="vehicleStatus"><option>Permanece estacionado</option><option>Retirado</option><option>Pendiente de verificación</option></select>
+<label for="vehicleNotes">Observaciones</label><textarea id="vehicleNotes" placeholder="Color, tipo de vehículo, motivo de seguimiento u otra observación"></textarea>
+<label for="vehiclePhoto">Fotografía (opcional)</label><input id="vehiclePhoto" type="file" accept="image/*" capture="environment">
+<div id="vehiclePhotoPreview" class="muted"></div><button id="saveVehicle" class="cyan">Guardar registro de vehículo</button>
+<div class="row"><button id="monthlyVehicleReport" class="cyan">Generar informe mensual de vehículos (Excel)</button></div>
+<div id="vehicleHistory" class="list"></div>
+</section>
+<section class="card full supervisor-only" id="historyCard"><h2>4. Historial completo, evidencias de rondas y administración</h2>
+<div class="row"><button id="export" class="secondary supervisor-only">Exportar historial CSV</button><button id="exportExcel" class="cyan supervisor-only">Generar informe completo de rondas (.xlsx)</button><button id="backup" class="secondary supervisor-only">Crear respaldo JSON</button><button id="restore" class="secondary supervisor-only">Restaurar respaldo JSON</button><input id="restoreFile" class="hidden supervisor-only" type="file" accept="application/json,.json"><button id="clear" class="danger supervisor-only">Borrar datos de laboratorio</button></div><h3>Fotografías recuperables</h3><p class="muted">Solo las fotografías asociadas a una ronda activa se muestran aquí y reciben control reforzado. Las capturas guardan el original sin recomprimir y una copia sellada, con huellas SHA-256 de ambas. Use «Verificar integridad» para comparar los archivos recuperados con sus huellas registradas. Las fotos antiguas sin huella no pueden certificarse retroactivamente.</p><div id="gallery" class="list"></div>
 <div style="overflow:auto;margin-top:12px"><table><thead><tr><th>Fecha/hora</th><th>Evento</th><th>Usuario</th><th>Detalle</th></tr></thead><tbody id="history"></tbody></table></div>
 </section>
 </div>
@@ -62,22 +137,104 @@ footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
 // Límite conocido: localStorage puede ser alterado por quien controle el navegador; no es almacenamiento forense centralizado.
 const KEY='tecchnex_cam_rondas_lab03';
 const $=id=>document.getElementById(id);
-let state=loadState(), currentUser='', activeRound=null, currentPhoto=null, originalPhoto=null, currentLocation=null;
-if(!state.rounds)state.rounds=[];if(!state.issues)state.issues=[];if(!state.events)state.events=[];
-function loadState(){try{return JSON.parse(localStorage.getItem(KEY))||{events:[],rounds:[],issues:[]}}catch(e){return {events:[],rounds:[],issues:[]}}}
+let state=loadState(), currentUser='', activeRound=null, currentPhoto=null, originalPhoto=null, currentLocation=null, sessionActive=false, vehiclePhotoData=null;
+if(!state.rounds)state.rounds=[];if(!state.issues)state.issues=[];if(!state.events)state.events=[];if(!state.vehicles)state.vehicles=[];if(!state.pointConfig)state.pointConfig={};if(!state.pendingSync)state.pendingSync=[];
+function loadState(){try{return JSON.parse(localStorage.getItem(KEY))||{events:[],rounds:[],issues:[],vehicles:[]}}catch(e){return {events:[],rounds:[],issues:[],vehicles:[]}}}
 function persist(){localStorage.setItem(KEY,JSON.stringify(state));render()}
 function stamp(){return new Date().toLocaleString('es-CO',{hour12:false})}
 function iso(){return new Date().toISOString()}
 function log(event,detail){state.events.unshift({at:iso(),display:stamp(),event,user:currentUser||'Sin sesión',detail});persist()}
 function roleOf(u){return u.startsWith('Supervisor')?'Supervisor':u.startsWith('Administrador')?'Administrador TIC':'Vigilante'}
+function isSupervisor(){return ['Supervisor','Administrador TIC'].includes(roleOf(currentUser))}
+function requireSupervisor(action){if(!isSupervisor()){alert('Esta función está reservada al supervisor.');log('Acceso restringido',`Intento de ${action}`);return false}return true}
 $('user').addEventListener('change',()=>{$('role').value=roleOf($('user').value)})
-$('loginBtn').onclick=()=>{currentUser=$('user').value;$('login').classList.add('hidden');$('app').classList.remove('hidden');$('session').textContent=`Sesión de demostración: ${currentUser} · Perfil: ${roleOf(currentUser)}`;log('Inicio de sesión de laboratorio','Perfil '+roleOf(currentUser))};
+
+// CAM-RONDAS-MOVIL-03: la información y los formularios permanecen dentro de su tarjeta; una vista a la vez.
+const menuNav=document.querySelector('.mobile-menu');
+const workGrid=document.querySelector('.grid');
+function showCard(targetId){
+ const target=$(targetId);if(!target)return;
+ menuNav.classList.add('hidden');workGrid.classList.remove('hidden');
+ workGrid.querySelectorAll(':scope > section').forEach(panel=>panel.classList.toggle('card-open',panel.id===targetId));
+ let back=target.querySelector('.card-back');
+ if(!back){back=document.createElement('button');back.type='button';back.className='card-back';back.textContent='← Volver al menú';back.addEventListener('click',showMenu);target.insertBefore(back,target.firstChild);}
+ target.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function showMenu(){workGrid.querySelectorAll(':scope > section').forEach(panel=>panel.classList.remove('card-open'));workGrid.classList.add('hidden');menuNav.classList.remove('hidden');document.querySelector('.menu-heading')?.scrollIntoView({behavior:'smooth',block:'start'});}
+showMenu();
+document.querySelectorAll('.menu-card[data-target]').forEach(card=>card.addEventListener('click',()=>showCard(card.dataset.target)));
+document.querySelectorAll('.menu-card[data-action="backup"]').forEach(card=>card.addEventListener('click',()=>$('backup').click()));
+document.querySelectorAll('.menu-card[data-action="clear"]').forEach(card=>card.addEventListener('click',()=>$('clear').click()));
+
+// CAM-RONDAS-QRNFC-01: lectura de puntos mediante QR (BarcodeDetector) y NFC (Web NFC), con alternativa manual.
+let qrStream=null, qrFrame=0, nfcReader=null;
+function setScanStatus(message){$('scanStatus').textContent=message;}
+function decodePointCode(raw){let value=String(raw||'').trim();try{const obj=JSON.parse(value);if(obj&&typeof obj.point==='string')value=obj.point.trim();}catch(_e){}return value;}
+function acceptScannedPoint(raw,source){const value=decodePointCode(raw);if(!value){setScanStatus('El código está vacío.');return false;}const option=[...$('point').options].find(o=>o.value.toLowerCase()===value.toLowerCase()||o.textContent.trim().toLowerCase()===value.toLowerCase());if(!option||!option.value){setScanStatus(`Código leído (${source}), pero no coincide con un punto configurado: ${value}`);log('Código de punto no reconocido',`${source}: ${value}`);return false;}if(!activeRound){setScanStatus(`Punto reconocido: ${option.textContent}. Inicie una ronda antes de marcarlo.`);return false;}$('point').value=option.value;$('manualPointCode').value=option.value;setScanStatus(`Punto reconocido por ${source}: ${option.textContent}. Registrando marcación…`);$('markPoint').click();return true;}
+function stopQrCamera(){if(qrFrame)cancelAnimationFrame(qrFrame);qrFrame=0;if(qrStream){qrStream.getTracks().forEach(t=>t.stop());qrStream=null;}$('qrVideo').srcObject=null;$('qrVideo').style.display='none';$('stopQrScan').disabled=true;}
+$('startQrScan').onclick=async()=>{if(!activeRound){alert('Primero inicie una ronda.');return;}if(!('BarcodeDetector' in window)){setScanStatus('Este navegador no ofrece BarcodeDetector. Use el código manual o la lectura NFC.');return;}try{const detector=new BarcodeDetector({formats:['qr_code']});qrStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});$('qrVideo').srcObject=qrStream;$('qrVideo').style.display='block';await $('qrVideo').play();$('stopQrScan').disabled=false;setScanStatus('Cámara activa. Enfoque el código QR del punto de control.');const scan=async()=>{if(!qrStream)return;try{const codes=await detector.detect($('qrVideo'));if(codes.length){const ok=acceptScannedPoint(codes[0].rawValue,'QR');if(ok){stopQrCamera();return;}}}catch(err){setScanStatus('No se pudo leer el QR: '+(err.message||'lectura no disponible'));}qrFrame=requestAnimationFrame(scan);};scan();}catch(err){stopQrCamera();setScanStatus('No se pudo abrir la cámara. Revise permisos y HTTPS. '+(err.message||''));}};
+$('stopQrScan').onclick=stopQrCamera;
+$('startNfcScan').onclick=async()=>{if(!activeRound){alert('Primero inicie una ronda.');return;}if(!('NDEFReader' in window)){setScanStatus('Este navegador/dispositivo no admite Web NFC. Use QR o el código manual.');return;}try{nfcReader=new NDEFReader();await nfcReader.scan();setScanStatus('NFC activo. Acerque el celular a la etiqueta del punto de control.');nfcReader.onreading=event=>{const decoder=new TextDecoder();let found='';for(const record of event.message.records){try{if(record.recordType==='text')found=decoder.decode(record.data);else if(record.recordType==='url')found=decoder.decode(record.data);}catch(_e){}}if(found)acceptScannedPoint(found,'NFC');else setScanStatus('Etiqueta NFC leída, pero no contiene un registro de texto compatible.');};nfcReader.onerror=event=>setScanStatus('Error de lectura NFC: '+(event.message||'intente nuevamente'));}catch(err){setScanStatus('No se pudo iniciar NFC. Revise permisos y que el sitio use HTTPS. '+(err.message||''));}};
+$('useManualPoint').onclick=()=>{const ok=acceptScannedPoint($('manualPointCode').value,'código manual');if(!ok)return;};
+
+
+$('loginBtn').onclick=()=>{
+ currentUser=$('user').value;sessionActive=true;
+ // CAM-RONDAS-SEG-02: recuperar la ronda no finalizada del mismo usuario, sin cerrarla automáticamente.
+ activeRound=(state.rounds||[]).find(r=>!r.finished&&r.user===currentUser)||null;
+ $('login').classList.add('hidden');$('app').classList.remove('hidden');showMenu();
+ $('sessionText').textContent=`Sesión de demostración: ${currentUser} · Perfil: ${roleOf(currentUser)}`;
+ if(activeRound){$('startRound').disabled=true;$('markPoint').disabled=false;$('finishRound').disabled=false;$('roundStatus').textContent=`Ronda en curso recuperada: ${activeRound.name} · Inicio ${activeRound.startedDisplay||''}`;}
+ else{$('startRound').disabled=false;$('markPoint').disabled=true;$('finishRound').disabled=true;$('roundStatus').textContent='No hay una ronda activa para este usuario.';}
+ document.querySelectorAll('.supervisor-only').forEach(el=>el.classList.toggle('hidden',!isSupervisor()));
+ render();log('Inicio de sesión de laboratorio','Perfil '+roleOf(currentUser));
+};
+// CAM-RONDAS-SEG-02: dos confirmaciones para la salida voluntaria desde la interfaz.
+$('exitApp').onclick=()=>{
+ if(!sessionActive)return;
+ const first=confirm('¿Deseas finalizar la sesión de CAM-RONDAS? La información guardada se conservará.');
+ if(!first)return;
+ const activeMsg=activeRound?` La ronda «${activeRound.name}» seguirá abierta y no se finalizará automáticamente.`:'';
+ const second=confirm('Segunda confirmación: ¿confirmas que deseas salir de la sesión operativa?'+activeMsg);
+ if(!second)return;
+ try{log('Salida confirmada de sesión',`Doble confirmación completada.${activeRound?' Ronda preservada en curso: '+activeRound.id:''}`);}catch(err){alert('No se pudo registrar la salida. La sesión permanecerá abierta.');return;}
+ sessionActive=false;currentUser='';currentPhoto=null;originalPhoto=null;currentLocation=null;
+ $('app').classList.add('hidden');$('login').classList.remove('hidden');showMenu();
+ $('photo').value='';$('photoPreview').innerHTML='';$('issueText').value='';$('gpsStatus').textContent='Ubicación no capturada.';
+ activeRound=null;
+};
+// El navegador solo permite una advertencia nativa al cerrar/recargar la pestaña; no permite forzar dos diálogos.
+window.addEventListener('beforeunload',event=>{if(sessionActive){event.preventDefault();event.returnValue='';}});
 $('startRound').onclick=()=>{if(activeRound){alert('Ya hay una ronda activa.');return}activeRound={id:'R-'+Date.now(),group:$('group').value.trim()||'Grupo sin nombre',name:$('roundName').value.trim()||'Ronda sin nombre',started:iso(),startedDisplay:stamp(),user:currentUser,points:[]};state.rounds.unshift(activeRound);$('startRound').disabled=true;$('markPoint').disabled=false;$('finishRound').disabled=false;$('roundStatus').textContent=`Ronda activa: ${activeRound.name} · Inicio ${activeRound.startedDisplay}`;log('Inicio de ronda',`${activeRound.name} | ${activeRound.group} | ${activeRound.id}`)};
-$('markPoint').onclick=()=>{if(!activeRound)return;const p=$('point').value;if(!p){alert('Seleccione un punto de control.');return}if(activeRound.points.some(x=>x.point===p)){alert('Punto rechazado: ya fue marcado en esta ronda.');log('Marcación rechazada',`Punto repetido: ${p}`);return}const now=Date.now();const last=activeRound.points.at(-1);/* CAM-RONDAS LAB-04: intervalo mínimo ajustado de 5 a 3 minutos, según validación solicitada. */if(last && now-new Date(last.at).getTime()<3*60*1000){alert('Marcación rechazada: deben transcurrir al menos 3 minutos desde el último punto válido.');log('Marcación rechazada',`Intervalo inferior a 3 minutos: ${p}`);return}const rec={point:p,at:iso(),display:stamp(),user:currentUser,location:currentLocation?{...currentLocation}:null};activeRound.points.push(rec);log('Punto marcado',`${p} | Ronda ${activeRound.id}`);$('roundStatus').textContent=`Ronda activa: ${activeRound.name} · Último punto: ${p} · ${rec.display}`};
+function distanceMeters(a,b){const R=6371000,rad=x=>x*Math.PI/180;const dLat=rad(b.latitude-a.latitude),dLon=rad(b.longitude-a.longitude);const q=Math.sin(dLat/2)**2+Math.cos(rad(a.latitude))*Math.cos(rad(b.latitude))*Math.sin(dLon/2)**2;return 2*R*Math.asin(Math.sqrt(q))}
+$('markPoint').onclick=()=>{if(!activeRound)return;const p=$('point').value;if(!p){alert('Seleccione un punto de control.');return}if(activeRound.points.some(x=>x.point===p)){alert('Punto rechazado: ya fue marcado en esta ronda.');log('Marcación rechazada',`Punto repetido: ${p}`);return}const now=Date.now();const last=activeRound.points.at(-1);/* CAM-RONDAS LAB-04: intervalo mínimo ajustado de 5 a 3 minutos. */if(last && now-new Date(last.at).getTime()<3*60*1000){alert('Marcación rechazada: deben transcurrir al menos 3 minutos desde el último punto válido.');log('Marcación rechazada',`Intervalo inferior a 3 minutos: ${p}`);return}const cfg=state.pointConfig[p];let validation='PENDIENTE_GPS',detail='Sin geocerca configurada';if(cfg&&currentLocation&&Number(currentLocation.accuracyMeters)<=50){const d=distanceMeters({latitude:cfg.latitude,longitude:cfg.longitude},currentLocation);if(d<=cfg.radius+Number(currentLocation.accuracyMeters)){validation='VALIDADA_LOCAL';detail=`Distancia aprox. ${Math.round(d)} m; radio ${cfg.radius} m; precisión GPS ±${currentLocation.accuracyMeters} m`;}else{validation='RECHAZADA_FUERA_DE_RADIO';detail=`Distancia aprox. ${Math.round(d)} m supera radio ${cfg.radius} m considerando precisión GPS ±${currentLocation.accuracyMeters} m`;alert('Marcación rechazada: ubicación fuera del radio configurado.');log('Marcación rechazada por geocerca',`${p} | ${detail}`);return}}else if(cfg&&!currentLocation){detail='Geocerca configurada, pero falta capturar GPS'}else if(cfg&&Number(currentLocation?.accuracyMeters)>50){detail='Precisión GPS insuficiente (mayor a 50 m)'}const rec={id:'PT-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),point:p,at:iso(),display:stamp(),user:currentUser,location:currentLocation?{...currentLocation}:null,validation,validationDetail:detail};activeRound.points.push(rec);state.pendingSync.push({id:rec.id,type:'round_point',record:rec,syncStatus:'PENDIENTE_DE_SINCRONIZACION'});log('Punto marcado',`${p} | ${validation} | ${detail} | Ronda ${activeRound.id}`);$('roundStatus').textContent=`Ronda activa: ${activeRound.name} · Último punto: ${p} · ${validation} · ${rec.display}`};
 $('finishRound').onclick=()=>{if(!activeRound)return;activeRound.finished=iso();activeRound.finishedDisplay=stamp();log('Fin de ronda',`${activeRound.name} | Puntos: ${activeRound.points.length}`);activeRound=null;$('startRound').disabled=false;$('markPoint').disabled=true;$('finishRound').disabled=true;$('roundStatus').textContent='Ronda finalizada.'};
-$('saveIssue').onclick=async()=>{const desc=$('issueText').value.trim();if(!desc){alert('Escriba la descripción de la novedad.');return}const rec={id:'N-'+Date.now(),type:$('issueType').value,description:desc,at:iso(),display:stamp(),user:currentUser,roundId:activeRound?.id||null,roundName:activeRound?.name||'Sin ronda activa',group:activeRound?.group||$('group').value||'No especificado',point:$('point').value||'No especificado',photo:currentPhoto,originalPhoto:originalPhoto,photoStamp:currentPhoto?stamp():null,location:currentLocation?{...currentLocation}:null,photoHashAlgorithm:currentPhoto?'SHA-256':null,originalSha256:null,stampedSha256:null,hashStatus:currentPhoto?'Calculando':'Sin fotografía'};
- if(currentPhoto){try{rec.originalSha256=await sha256DataUrl(originalPhoto);rec.stampedSha256=await sha256DataUrl(currentPhoto);rec.hashCreatedAt=iso();rec.hashStatus='Huella registrada';}catch(err){rec.hashStatus='Error al calcular huella';alert('No fue posible calcular SHA-256 en este navegador. La novedad se guardará, pero la foto quedará marcada sin huella válida.');}}
- state.issues.unshift(rec);log('Novedad registrada',`${rec.type} | ${desc} | Foto: ${currentPhoto?'sí':'no'} | SHA-256: ${rec.hashStatus}`);$('issueText').value='';$('photo').value='';currentPhoto=null;originalPhoto=null;$('photoPreview').textContent='';currentLocation=null;$('gpsStatus').textContent='Ubicación no capturada.';alert('Novedad guardada en el laboratorio.');render();};
+// CAM-RONDAS-FOTO-01 / LAB-06: guardado con control de errores, rollback si falla la persistencia y bloqueo de doble envío.
+$('saveIssue').onclick=async()=>{
+ const button=$('saveIssue');
+ if(button.disabled)return;
+ const desc=$('issueText').value.trim();
+ if(!desc){alert('Escriba la descripción de la novedad.');return;}
+ const previousState=JSON.stringify(state);
+ button.disabled=true;const originalLabel=button.textContent;button.textContent='Guardando novedad…';
+ try{
+  const rec={id:'N-'+Date.now(),type:$('issueType').value,description:desc,at:iso(),display:stamp(),user:currentUser,roundId:activeRound?.id||null,roundName:activeRound?.name||'Sin ronda activa',group:activeRound?.group||$('group').value||'No especificado',point:$('point').value||'No especificado',photo:currentPhoto,originalPhoto:originalPhoto,photoStamp:currentPhoto?stamp():null,location:currentLocation?{...currentLocation}:null,photoHashAlgorithm:currentPhoto?'SHA-256':null,originalSha256:null,stampedSha256:null,hashStatus:currentPhoto?'Pendiente de cálculo':'Sin fotografía'};
+  // CAM-RONDAS-FOTO-01: el control reforzado se aplica solo a fotos asociadas a una ronda activa.
+  const protectedRoundPhoto=Boolean(currentPhoto&&activeRound);
+  if(protectedRoundPhoto){try{rec.originalSha256=await sha256DataUrl(originalPhoto);rec.stampedSha256=await sha256DataUrl(currentPhoto);rec.hashCreatedAt=iso();rec.hashStatus='Huella registrada';}catch(err){rec.hashStatus='Huella no calculada';console.warn('CAM-RONDAS-FOTO-01: no fue posible calcular SHA-256',err);}}else if(currentPhoto){rec.photoHashAlgorithm=null;rec.hashStatus='Registro operativo: sin control reforzado';rec.originalSha256=null;rec.stampedSha256=null;rec.originalPhoto=null;}
+  state.issues.unshift(rec);
+  state.events.unshift({at:iso(),display:stamp(),event:'Novedad registrada',user:currentUser||'Sin sesión',detail:`${rec.type} | ${desc} | Foto: ${currentPhoto?'sí':'no'} | SHA-256: ${rec.hashStatus}`});
+  // La persistencia debe completarse antes de limpiar el formulario o confirmar éxito.
+  persist();
+  $('issueText').value='';$('photo').value='';currentPhoto=null;originalPhoto=null;$('photoPreview').textContent='';currentLocation=null;$('gpsStatus').textContent='Ubicación no capturada.';
+  alert(rec.photo?(protectedRoundPhoto?(rec.originalSha256&&rec.stampedSha256?'Novedad guardada con control reforzado: original y foto sellada con SHA-256.':'Novedad guardada, pero falló la huella SHA-256; revise antes de incluirla en un informe de ronda.'):'Novedad guardada con fotografía para registro operativo.'):'Novedad guardada en el laboratorio.');
+ }catch(err){
+  state=JSON.parse(previousState);try{render();}catch(_e){}
+  console.error('CAM-RONDAS-FOTO-01: fallo al guardar novedad',err);
+  const quota=err&&(/quota|storage|exceeded/i.test(String(err.name)+' '+String(err.message)));
+  alert(quota?'No se pudo guardar la novedad porque el navegador alcanzó su límite de almacenamiento. No se confirmó el guardado. Exporte un respaldo y avise antes de borrar datos.':'No se pudo guardar la novedad. No se confirmó el guardado. Detalle: '+(err?.message||'error inesperado'));
+ }finally{button.disabled=false;button.textContent=originalLabel;}
+};
 // CAM-RONDAS-FOTO-01: calcular SHA-256 sobre los bytes representados por la data URL guardada.
 async function sha256DataUrl(dataUrl){
  if(!window.crypto?.subtle)throw new Error('Web Crypto no disponible; se requiere HTTPS o localhost.');
@@ -97,13 +254,15 @@ $('photo').addEventListener('change',async e=>{
  if(!file){currentPhoto=null;$('photoPreview').innerHTML='';return}
  if(!file.type.startsWith('image/')){alert('Seleccione una imagen.');e.target.value='';return}
  try{
-  originalPhoto=await resizedImage(file,1400,.78); currentPhoto=await stampedImage(file,stamp());
+  // CAM-RONDAS-FOTO-01: conservar los bytes originales para la evidencia de ronda; no reducir ni recomprimir el original.
+  originalPhoto=await fileToDataUrl(file); currentPhoto=await stampedImage(file,stamp());
   $('photoPreview').innerHTML='<div class="status">Fotografía preparada con sello de fecha y hora. Verifique la imagen antes de guardar.</div><img id="stampedPhotoPreview" alt="Vista previa de la fotografía con sello TECCHNEX y fecha/hora" style="display:block;width:100%;max-width:620px;max-height:520px;object-fit:contain;border:1px solid var(--line);border-radius:10px;background:#eef4f7;margin-top:10px"><p class="muted">La imagen mostrada es la copia con sello que se adjuntará a la novedad.</p>';
   $('stampedPhotoPreview').src=currentPhoto;
  }catch(err){currentPhoto=null;$('photoPreview').innerHTML='';alert('No se pudo procesar la imagen.')}
 });
+function fileToDataUrl(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onerror=reject;r.onload=()=>resolve(String(r.result));r.readAsDataURL(file)})}
 function resizedImage(file,max,quality){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const scale=Math.min(1,max/img.width);const c=document.createElement('canvas');c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext('2d').drawImage(img,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',quality))};img.src=reader.result};reader.readAsDataURL(file)})}
-function stampedImage(file,label){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const max=1400,scale=Math.min(1,max/img.width),w=Math.round(img.width*scale),h=Math.round(img.height*scale);const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.drawImage(img,0,0,w,h);const band=Math.max(42,Math.round(h*.09));ctx.fillStyle='rgba(18,59,93,.88)';ctx.fillRect(0,h-band,w,band);ctx.fillStyle='#fff';ctx.font=`bold ${Math.max(16,Math.round(w*.028))}px Arial`;ctx.fillText('TECCHNEX · CAM-RONDAS',14,h-band+Math.round(band*.36));ctx.font=`${Math.max(14,Math.round(w*.022))}px Arial`;ctx.fillText('Captura: '+label,14,h-band+Math.round(band*.75));resolve(c.toDataURL('image/jpeg',.88))};img.src=reader.result};reader.readAsDataURL(file)})}
+function stampedImage(file,label){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const max=1000,scale=Math.min(1,max/img.width),w=Math.round(img.width*scale),h=Math.round(img.height*scale);const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.drawImage(img,0,0,w,h);const band=Math.max(42,Math.round(h*.09));ctx.fillStyle='rgba(18,59,93,.88)';ctx.fillRect(0,h-band,w,band);ctx.fillStyle='#fff';ctx.font=`bold ${Math.max(16,Math.round(w*.028))}px Arial`;ctx.fillText('TECCHNEX · CAM-RONDAS',14,h-band+Math.round(band*.36));ctx.font=`${Math.max(14,Math.round(w*.022))}px Arial`;ctx.fillText('Captura: '+label,14,h-band+Math.round(band*.75));resolve(c.toDataURL('image/jpeg',.72))};img.src=reader.result};reader.readAsDataURL(file)})}
 // LAB-03: capturar ubicación real del dispositivo; nunca inventar coordenadas.
 $('captureGps').onclick=()=>{
  if(!navigator.geolocation){$('gpsStatus').textContent='Este navegador no ofrece geolocalización.';return}
@@ -117,8 +276,13 @@ $('captureGps').onclick=()=>{
 $('clearGps').onclick=()=>{currentLocation=null;$('gpsStatus').textContent='Ubicación retirada; no se adjuntará ubicación GPS.'};
 function mapUrl(loc){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(loc.latitude+','+loc.longitude)}
 $('exportExcel').onclick=()=>{
+ if(!requireSupervisor('generar informe completo de rondas'))return;
  if(!window.XLSX){alert('No está disponible la biblioteca Excel. Compruebe la conexión a internet y vuelva a intentarlo. También puede exportar el historial CSV.');return}
  const rounds=(state.rounds||[]), issues=(state.issues||[]);
+ // CAM-RONDAS-FOTO-01: no emitir informe de ronda con fotos sin huellas o sin verificación local aprobada.
+ const evidenceIssues=issues.filter(i=>i.photo&&i.roundId);
+ const pendingEvidence=evidenceIssues.filter(i=>!i.originalSha256||!i.stampedSha256||i.lastIntegrityResult!=='Íntegra');
+ if(pendingEvidence.length){alert(`Informe detenido: hay ${pendingEvidence.length} fotografía(s) de ronda que requieren verificación de integridad. Abra el álbum de evidencias, pulse «Verificar integridad» y vuelva a generar el informe.`);return;}
  const wb=XLSX.utils.book_new();
  const summary=[['TECCHNEX · CAM-RONDAS · INFORME DE LABORATORIO'],['Generado',stamp()],['Rondas registradas',rounds.length],['Marcaciones válidas',rounds.reduce((n,r)=>n+(r.points||[]).length,0)],['Novedades registradas',issues.length],['Nota','Datos locales de este navegador; prototipo sin sincronización de servidor.']];
  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(summary),'Resumen');
@@ -133,16 +297,30 @@ $('exportExcel').onclick=()=>{
  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(issueRows),'Novedades');
  const eventRows=[['Fecha/hora','Evento','Usuario','Detalle'],...(state.events||[]).map(x=>[x.display||x.at,x.event,x.user,x.detail])];XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(eventRows),'Historial');
  for(const name of wb.SheetNames){const ws=wb.Sheets[name];ws['!cols']=Array.from({length:Math.max(4,(ws['!ref']?XLSX.utils.decode_range(ws['!ref']).e.c+1:4))},(_,i)=>({wch:i===3?34:20}));}
- XLSX.writeFile(wb,'CAM-RONDAS-LAB03-Informe.xlsx');
+ XLSX.writeFile(wb,'CAM-RONDAS-LAB08-Informe-Rondas.xlsx');
 };
-function render(){const ev=state.events||[];$('history').innerHTML=ev.slice(0,100).map(x=>`<tr><td>${esc(x.display||x.at)}</td><td>${esc(x.event)}</td><td>${esc(x.user)}</td><td>${esc(x.detail)}</td></tr>`).join('');$('statRounds').textContent=(state.rounds||[]).length;$('statPoints').textContent=(state.rounds||[]).reduce((n,r)=>n+(r.points||[]).length,0);$('statIssues').textContent=(state.issues||[]).length;
- const photos=(state.issues||[]).filter(x=>x.photo);$('gallery').innerHTML=photos.length?photos.map(x=>`<article class="item" style="align-items:flex-start"><div style="width:100%"><strong>${esc(x.type)} · ${esc(x.id)}</strong><small>${esc(x.display)} · Vigilante: ${esc(x.user)} · Ronda: ${esc(x.roundName||x.roundId||'Sin ronda')} · Punto: ${esc(x.point)}</small><small>${x.location?`GPS: ${esc(x.location.latitude)}, ${esc(x.location.longitude)} · ±${esc(x.location.accuracyMeters)} m · <a target="_blank" rel="noopener" href="${mapUrl(x.location)}">Abrir en Google Maps</a>`:'Sin ubicación GPS asociada'}</small><img alt="Fotografía sellada de ${esc(x.id)}" src="${x.photo}" style="display:block;max-width:100%;max-height:360px;object-fit:contain;margin-top:10px;border:1px solid var(--line);border-radius:8px"><div class="status"><strong>Estado de integridad:</strong> ${esc(x.hashStatus||'Sin huella SHA-256 registrada')}<br><small>SHA-256 original: ${esc(x.originalSha256||'No registrada')}<br>SHA-256 sellada: ${esc(x.stampedSha256||'No registrada')}</small></div><div class="row"><button class="secondary" onclick="verifyPhotoIntegrity('${x.id}')" ${x.originalSha256&&x.stampedSha256?'':'disabled'}>Verificar integridad</button></div></div></article>`).join(''):'<p class="muted">Todavía no hay fotografías guardadas en el historial.</p>';
+// CAM-RONDAS-PARQ-01: registro operativo independiente; no se aplica hash SHA-256 reforzado a estas fotos.
+$('vehiclePhoto').addEventListener('change',async e=>{const f=e.target.files?.[0];vehiclePhotoData=null;$('vehiclePhotoPreview').textContent='';if(!f)return;if(!f.type.startsWith('image/')){alert('Seleccione una imagen válida.');e.target.value='';return}try{vehiclePhotoData=await resizedImage(f,1000,.68);$('vehiclePhotoPreview').textContent='Fotografía preparada para el registro.'}catch(err){alert('No se pudo preparar la fotografía.');}});
+$('saveVehicle').onclick=()=>{const plate=$('vehiclePlate').value.trim().toUpperCase().replace(/\s+/g,'');const apartment=$('vehicleApartment').value.trim();if(!plate){alert('Ingrese la placa del vehículo.');return}if(!apartment){alert('Indique el apartamento relacionado.');return}const rec={id:'V-'+Date.now(),plate,apartment,status:$('vehicleStatus').value,notes:$('vehicleNotes').value.trim(),photo:vehiclePhotoData,at:iso(),display:stamp(),user:currentUser};state.vehicles.unshift(rec);state.events.unshift({at:iso(),display:stamp(),event:'Vehículo registrado',user:currentUser,detail:`${plate} | Apto. ${apartment} | ${rec.status}`});try{persist();$('vehiclePlate').value='';$('vehicleApartment').value='';$('vehicleNotes').value='';$('vehiclePhoto').value='';$('vehiclePhotoPreview').textContent='';vehiclePhotoData=null;alert('Registro de vehículo guardado.')}catch(err){state.vehicles.shift();alert('No se pudo guardar el registro. Revise el almacenamiento del navegador.')}};
+$('monthlyVehicleReport').onclick=()=>{if(!window.XLSX){alert('La biblioteca Excel no está disponible.');return}const now=new Date(),month=now.getMonth(),year=now.getFullYear(),prefix=`${year}-${String(month+1).padStart(2,'0')}`,items=(state.vehicles||[]).filter(v=>String(v.at||'').startsWith(prefix));const wb=XLSX.utils.book_new();const summary=[['TECCHNEX · CAM-RONDAS · VEHÍCULOS EN PARQUEADERO'],['Periodo',prefix],['Generado',stamp()],['Registros del mes',items.length],['Nota','Registro operativo local; las fotografías no usan el protocolo reforzado de evidencia de rondas.']];XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(summary),'Resumen mensual');const rows=[['ID registro','Placa','Apartamento relacionado','Fecha y hora','Vigilante','Estado','Observaciones','Fotografía adjunta']];items.forEach(v=>rows.push([v.id,v.plate,v.apartment,v.display||v.at,v.user,v.status,v.notes||'',v.photo?'Disponible en historial local':'No']));XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows),'Registro de vehículos');for(const n of wb.SheetNames){const ws=wb.Sheets[n];ws['!cols']=Array.from({length:XLSX.utils.decode_range(ws['!ref']).e.c+1},(_,i)=>({wch:i===6?38:22}));}XLSX.writeFile(wb,`Reporte_Vehiculos_Parqueadero_${prefix}.xlsx`);log('Informe mensual de vehículos generado',`${prefix} | Registros: ${items.length}`)};
+// CAM-RONDAS-UBI-01A/B: geocercas locales y cola pendiente; todavía no existe servidor de sincronización.
+function refreshPointConfig(){const p=$('configPoint')?.value,cfg=state.pointConfig?.[p];if(!p)return;$('configLat').value=cfg?.latitude??'';$('configLon').value=cfg?.longitude??'';$('configRadius').value=cfg?.radius??35;$('pointConfigStatus').textContent=cfg?`Configurada: ${cfg.latitude}, ${cfg.longitude} · radio ${cfg.radius} m`:'Este punto no tiene geocerca configurada.'}
+$('configPoint').addEventListener('change',refreshPointConfig);
+$('savePointConfig').addEventListener('click',()=>{if(!requireSupervisor('configurar geocercas'))return;const p=$('configPoint').value,lat=Number($('configLat').value),lon=Number($('configLon').value),radius=Number($('configRadius').value);if($('configLat').value===''||$('configLon').value===''||!Number.isFinite(lat)||!Number.isFinite(lon)||lat < -90||lat>90||lon < -180||lon>180||!Number.isFinite(radius)||radius<5||radius>500){alert('Revise coordenadas y radio. Latitud: −90 a 90; longitud: −180 a 180; radio: 5 a 500 m.');return}state.pointConfig[p]={latitude:lat,longitude:lon,radius,updatedAt:iso(),updatedBy:currentUser};persist();refreshPointConfig();log('Geocerca configurada',`${p} | ${lat}, ${lon} | radio ${radius} m`)});
+$('removePointConfig').addEventListener('click',()=>{if(!requireSupervisor('quitar geocerca'))return;const p=$('configPoint').value;if(!state.pointConfig[p])return;if(!confirm(`¿Quitar la geocerca de ${p}?`))return;delete state.pointConfig[p];persist();refreshPointConfig();log('Geocerca retirada',p)});
+refreshPointConfig();
+function render(){const supervisor=isSupervisor();$('pointConfigCard')?.classList.toggle('hidden',!supervisor);const visibleIssues=supervisor?(state.issues||[]):(state.issues||[]).filter(x=>x.user===currentUser);const visibleVehicles=supervisor?(state.vehicles||[]):(state.vehicles||[]).filter(x=>x.user===currentUser);const ev=supervisor?(state.events||[]):(state.events||[]).filter(x=>x.user===currentUser);$('history').innerHTML=ev.slice(0,100).map(x=>`<tr><td>${esc(x.display||x.at)}</td><td>${esc(x.event)}</td><td>${esc(x.user)}</td><td>${esc(x.detail)}</td></tr>`).join('');$('statRounds').textContent=(supervisor?(state.rounds||[]):(state.rounds||[]).filter(x=>x.user===currentUser)).length;$('statPoints').textContent=(supervisor?(state.rounds||[]):(state.rounds||[]).filter(x=>x.user===currentUser)).reduce((n,r)=>n+(r.points||[]).length,0);$('statIssues').textContent=visibleIssues.length;const myVehicles=(supervisor?(state.vehicles||[]):(state.vehicles||[]).filter(x=>x.user===currentUser));$('tileRoundInfo').textContent=activeRound?`EN CURSO · ${activeRound.name}`:'Sin ronda activa';$('tileScanInfo').textContent=activeRound?'Ronda activa · QR / NFC listo':'Inicie una ronda para marcar';$('tileIssueInfo').textContent=`${visibleIssues.length} novedad${visibleIssues.length===1?'':'es'} registrada${visibleIssues.length===1?'':'s'}`;$('tileVehicleInfo').textContent=`${myVehicles.length} registro${myVehicles.length===1?'':'s'} de vehículo`;
+ const photos=visibleIssues.filter(x=>x.photo&&x.roundId);$('gallery').innerHTML=photos.length?photos.map(x=>`<article class="item" style="align-items:flex-start"><div style="width:100%"><strong>${esc(x.type)} · ${esc(x.id)}</strong><small>${esc(x.display)} · Vigilante: ${esc(x.user)} · Ronda: ${esc(x.roundName||x.roundId||'Sin ronda')} · Punto: ${esc(x.point)}</small><small>${x.location?`GPS: ${esc(x.location.latitude)}, ${esc(x.location.longitude)} · ±${esc(x.location.accuracyMeters)} m · <a target="_blank" rel="noopener" href="${mapUrl(x.location)}">Abrir en Google Maps</a>`:'Sin ubicación GPS asociada'}</small><img alt="Fotografía sellada de ${esc(x.id)}" src="${x.photo}" style="display:block;max-width:100%;max-height:360px;object-fit:contain;margin-top:10px;border:1px solid var(--line);border-radius:8px"><div class="status"><strong>Estado de integridad:</strong> ${esc(x.hashStatus||(x.originalSha256&&x.stampedSha256?'Huella registrada':'SIN HUELLA SHA-256: no incluir como evidencia verificada'))}<br><small>SHA-256 original: ${esc(x.originalSha256||'No registrada')}<br>SHA-256 sellada: ${esc(x.stampedSha256||'No registrada')}</small></div><div class="row"><button class="secondary" onclick="verifyPhotoIntegrity('${x.id}')" ${x.originalSha256&&x.stampedSha256?'':'disabled'}>Verificar integridad</button></div></div></article>`).join(''):'';
+ $('vehicleHistory').innerHTML=visibleVehicles.length?visibleVehicles.map(v=>`<article class="item"><div><strong>${esc(v.plate)} · Apto. ${esc(v.apartment)}</strong><small>${esc(v.display)} · ${esc(v.user)} · ${esc(v.status)}</small><small>${esc(v.notes||'Sin observaciones')}</small>${v.photo?`<img alt="Vehículo ${esc(v.plate)}" src="${v.photo}" style="display:block;max-width:260px;max-height:180px;object-fit:contain;margin-top:8px">`:''}</div></article>`).join(''):'<p class="muted">No hay vehículos registrados por este usuario.</p>';
 }
 // CAM-RONDAS-FOTO-01: se retira la descarga individual del flujo ordinario; la evidencia se consulta desde el álbum interno. La exportación formal de expedientes se desarrollará en una fase posterior.
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-$('export').onclick=()=>{const lines=[['FechaHora','Evento','Usuario','Detalle'],...(state.events||[]).map(x=>[x.display||x.at,x.event,x.user,x.detail])];const csv='sep=;\\n'+lines.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\\r\\n');download(new Blob(['\\ufeff'+csv],{type:'text/csv;charset=utf-8'}),'CAM-RONDAS-LAB03-historial.csv')};
-$('backup').onclick=()=>download(new Blob([JSON.stringify({tipo:'TECCHNEX-CAM-RONDAS-LAB-05',version:5,exportado:iso(),state},null,2)],{type:'application/json'}),'CAM-RONDAS-LAB03-respaldo.json');
-$('clear').onclick=()=>{if(confirm('¿Borrar todos los datos locales de CAM-RONDAS LAB-03? Descargue un respaldo antes si lo necesita.')){state={events:[],rounds:[],issues:[]};activeRound=null;persist();log('Datos de laboratorio borrados','Se reinició el almacenamiento local')}};function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+$('export').onclick=()=>{if(!requireSupervisor('exportar historial'))return;const lines=[['FechaHora','Evento','Usuario','Detalle'],...(state.events||[]).map(x=>[x.display||x.at,x.event,x.user,x.detail])];const csv='sep=;\\n'+lines.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\\r\\n');download(new Blob(['\\ufeff'+csv],{type:'text/csv;charset=utf-8'}),'CAM-RONDAS-LAB08-historial.csv')};
+$('backup').onclick=()=>{if(!requireSupervisor('crear respaldo'))return;download(new Blob([JSON.stringify({tipo:'TECCHNEX-CAM-RONDAS-LAB-09',version:8,exportado:iso(),state},null,2)],{type:'application/json'}),'CAM-RONDAS-LAB09-respaldo.json')};
+$('restore').onclick=()=>{if(!requireSupervisor('restaurar respaldo'))return;$('restoreFile').click()};
+$('restoreFile').addEventListener('change',async e=>{if(!requireSupervisor('restaurar respaldo')){e.target.value='';return}const f=e.target.files?.[0];if(!f)return;try{const parsed=JSON.parse(await f.text());const candidate=parsed.state||parsed;if(!candidate||!Array.isArray(candidate.rounds)||!Array.isArray(candidate.issues)||!Array.isArray(candidate.events)){alert('El archivo no tiene una estructura de respaldo CAM-RONDAS reconocible. No se modificaron los datos.');return}if(!confirm('¿Restaurar este respaldo? Los datos actuales de este navegador serán reemplazados. Cree primero un respaldo si desea conservarlos.'))return;state={events:candidate.events||[],rounds:candidate.rounds||[],issues:candidate.issues||[],vehicles:candidate.vehicles||[]};activeRound=(state.rounds||[]).find(r=>!r.finished&&r.user===currentUser)||null;persist();log('Respaldo restaurado',`Archivo: ${f.name}`);alert('Respaldo restaurado. Verifique los registros antes de continuar.')}catch(err){alert('No se pudo restaurar el respaldo: '+(err.message||'archivo inválido'))}finally{e.target.value=''}});
+$('clear').onclick=()=>{if(!requireSupervisor('borrar datos'))return;if(confirm('¿Borrar todos los datos locales de CAM-RONDAS LAB-08? Descargue un respaldo antes si lo necesita.')){state={events:[],rounds:[],issues:[],vehicles:[]};activeRound=null;persist();log('Datos de laboratorio borrados','Se reinició el almacenamiento local')}};function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+window.addEventListener('pagehide',stopQrCamera);
 render();
 </script>
 </body>
