@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TECCHNEX · CAM-RONDAS LAB-04</title>
+<style>
+:root{--navy:#123b5d;--cyan:#0d8291;--bg:#f2f6f9;--ink:#203747;--muted:#617582;--line:#d5e0e7;--red:#b33a4b;--green:#147d64;--gold:#b9770e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px Arial,sans-serif}
+header{background:var(--navy);color:#fff;padding:18px clamp(16px,4vw,42px);box-shadow:0 3px 12px #17384a22}
+header h1{margin:0;font-size:clamp(20px,3vw,29px)}header p{margin:6px 0 0;color:#bfeaf0}
+main{max-width:1100px;margin:22px auto;padding:0 14px 36px}.notice{padding:12px 14px;border:1px solid #e8c87d;background:#fff8e8;border-radius:10px;margin-bottom:16px;line-height:1.45}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 3px 10px #123b5d0a}.card h2{font-size:18px;color:var(--navy);margin:0 0 14px}
+label{display:block;font-size:13px;font-weight:bold;color:var(--muted);margin:10px 0 5px}input,select,textarea{width:100%;border:1px solid #bdccd5;border-radius:8px;padding:11px;font:inherit;background:white;color:var(--ink)}textarea{min-height:74px;resize:vertical}
+button{border:0;border-radius:8px;background:var(--navy);color:white;padding:10px 13px;font-weight:bold;cursor:pointer;margin:7px 6px 0 0}button.secondary{background:#e8f1f5;color:var(--navy)}button.cyan{background:var(--cyan)}button.danger{background:var(--red)}button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:150px}.pill{display:inline-block;border-radius:30px;padding:4px 9px;background:#e8f1f5;color:var(--navy);font-size:12px;font-weight:bold}.pill.ok{background:#e1f5ed;color:var(--green)}.pill.warn{background:#fff0d7;color:var(--gold)}
+.hidden{display:none!important}.full{grid-column:1/-1}.muted{color:var(--muted);font-size:13px;line-height:1.45}.list{display:grid;gap:8px}.item{border:1px solid var(--line);border-radius:10px;padding:11px;display:flex;gap:12px;align-items:center;justify-content:space-between}.item strong{display:block}.item small{display:block;color:var(--muted);margin-top:4px}.status{padding:10px 12px;background:#e8f6f7;border-radius:8px;color:var(--navy);margin:10px 0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px}.stat b{font-size:23px;color:var(--navy);display:block}.stat span{font-size:12px;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#eef4f7;color:var(--navy)}
+footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.stats{grid-template-columns:repeat(3,1fr)}.item{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header><h1>TECCHNEX · CAM-RONDAS</h1><p>Sistema de Monitoreo y Gestión de Rondas de Seguridad · LAB-03</p></header>
+<main>
+<div class="notice"><strong>Versión de laboratorio independiente.</strong> Los datos y fotografías se guardan únicamente en este navegador. Este prototipo no tiene autenticación segura, sincronización entre dispositivos ni envío real de alertas. GPS requiere permiso y normalmente HTTPS o localhost. No usar para operación de seguridad real.</div>
+<section id="login" class="card">
+<h2>Ingreso al laboratorio</h2><p class="muted">Perfiles de demostración para probar el flujo inicial. No son credenciales de producción.</p>
+<div class="row"><div><label for="user">Usuario</label><select id="user"><option value="Vigilante Demo">Vigilante Demo</option><option value="Supervisor Demo">Supervisor Demo</option><option value="Administrador TIC Demo">Administrador TIC Demo</option></select></div><div><label for="role">Perfil</label><input id="role" value="Vigilante" readonly></div></div>
+<button id="loginBtn">Ingresar al laboratorio</button>
+</section>
+<section id="app" class="hidden">
+<div class="status" id="session"></div>
+<div class="stats"><div class="stat"><b id="statRounds">0</b><span>Rondas registradas</span></div><div class="stat"><b id="statPoints">0</b><span>Marcaciones válidas</span></div><div class="stat"><b id="statIssues">0</b><span>Novedades registradas</span></div></div>
+<div class="grid">
+<section class="card" id="roundCard"><h2>1. Operación de rondas</h2>
+<label for="group">Grupo / servicio</label><input id="group" value="Grupo de ronda A">
+<label for="roundName">Nombre de ronda</label><input id="roundName" value="Ronda perimetral">
+<label for="point">Punto de control</label><select id="point"><option value="">Seleccione un punto</option><option>Acceso principal</option><option>Parqueadero visitantes</option><option>Perímetro norte</option><option>Cuarto técnico</option><option>Zona común</option></select>
+<div class="row"><button id="startRound">Iniciar ronda</button><button id="markPoint" class="cyan" disabled>Marcar punto</button><button id="finishRound" class="secondary" disabled>Finalizar ronda</button></div>
+<div class="row"><button id="captureGps" class="secondary">Capturar ubicación GPS</button><button id="clearGps" class="secondary">Quitar ubicación</button></div><div id="gpsStatus" class="status">Ubicación no capturada.</div><p class="muted">La ubicación capturada se asociará a la siguiente marcación y a la novedad guardada. No se ha integrado lectura real de QR/NFC. GPS requiere permiso del dispositivo y contexto seguro.</p><p class="muted">Regla inicial: no se permite repetir un punto en la misma ronda y se aplica un mínimo de 3 minutos entre marcaciones válidas.</p>
+<div id="roundStatus" class="status">No hay una ronda activa.</div>
+</section>
+<section class="card"><h2>2. Minuta y novedades</h2>
+<label for="issueType">Tipo de novedad</label><select id="issueType"><option>Seguridad</option><option>Convivencia</option><option>Vehículo en parqueadero de visitantes</option><option>Daño / mantenimiento</option><option>Otra</option></select>
+<label for="issueText">Descripción</label><textarea id="issueText" placeholder="Describa la novedad observada"></textarea>
+<label for="photo">Fotografía de evidencia (opcional)</label><input id="photo" type="file" accept="image/*" capture="environment">
+<p class="muted">La foto seleccionada se procesa en el navegador y se añade un sello visible con fecha y hora. En este laboratorio la evidencia no se envía a ningún servidor.</p>
+<button id="saveIssue" class="cyan">Guardar novedad</button><div id="photoPreview" aria-live="polite"></div><div id="locationIssue" class="muted">La ubicación actual se adjuntará si fue capturada.</div>
+</section>
+<section class="card full"><h2>3. Historial de esta sesión y del navegador</h2>
+<div class="row"><button id="export" class="secondary">Exportar historial CSV</button><button id="exportExcel" class="cyan">Generar informe Excel (.xlsx)</button><button id="backup" class="secondary">Crear respaldo JSON</button><button id="clear" class="danger">Borrar datos de laboratorio</button></div><h3>Fotografías recuperables</h3><p class="muted">Las fotografías selladas quedan vinculadas a su novedad y se pueden volver a abrir tras cerrar y reabrir este archivo en el mismo navegador. Los datos siguen siendo locales.</p><div id="gallery" class="list"></div>
+<div style="overflow:auto;margin-top:12px"><table><thead><tr><th>Fecha/hora</th><th>Evento</th><th>Usuario</th><th>Detalle</th></tr></thead><tbody id="history"></tbody></table></div>
+</section>
+</div>
+</section>
+</main>
+<footer>TECCHNEX — DE LA NECESIDAD A LA SOLUCIÓN · MEJORAR SIN ROMPER</footer>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+// CAM-RONDAS LAB-03: prototipo independiente. Persistencia de fotografías, ubicación GPS y exportación Excel; laboratorio aislado. No modificar bases estables de otros productos.
+const KEY='tecchnex_cam_rondas_lab03';
+const $=id=>document.getElementById(id);
+let state=loadState(), currentUser='', activeRound=null, currentPhoto=null, originalPhoto=null, currentLocation=null;
+if(!state.rounds)state.rounds=[];if(!state.issues)state.issues=[];if(!state.events)state.events=[];
+function loadState(){try{return JSON.parse(localStorage.getItem(KEY))||{events:[],rounds:[],issues:[]}}catch(e){return {events:[],rounds:[],issues:[]}}}
+function persist(){localStorage.setItem(KEY,JSON.stringify(state));render()}
+function stamp(){return new Date().toLocaleString('es-CO',{hour12:false})}
+function iso(){return new Date().toISOString()}
+function log(event,detail){state.events.unshift({at:iso(),display:stamp(),event,user:currentUser||'Sin sesión',detail});persist()}
+function roleOf(u){return u.startsWith('Supervisor')?'Supervisor':u.startsWith('Administrador')?'Administrador TIC':'Vigilante'}
+$('user').addEventListener('change',()=>{$('role').value=roleOf($('user').value)})
+$('loginBtn').onclick=()=>{currentUser=$('user').value;$('login').classList.add('hidden');$('app').classList.remove('hidden');$('session').textContent=`Sesión de demostración: ${currentUser} · Perfil: ${roleOf(currentUser)}`;log('Inicio de sesión de laboratorio','Perfil '+roleOf(currentUser))};
+$('startRound').onclick=()=>{if(activeRound){alert('Ya hay una ronda activa.');return}activeRound={id:'R-'+Date.now(),group:$('group').value.trim()||'Grupo sin nombre',name:$('roundName').value.trim()||'Ronda sin nombre',started:iso(),startedDisplay:stamp(),user:currentUser,points:[]};state.rounds.unshift(activeRound);$('startRound').disabled=true;$('markPoint').disabled=false;$('finishRound').disabled=false;$('roundStatus').textContent=`Ronda activa: ${activeRound.name} · Inicio ${activeRound.startedDisplay}`;log('Inicio de ronda',`${activeRound.name} | ${activeRound.group} | ${activeRound.id}`)};
+$('markPoint').onclick=()=>{if(!activeRound)return;const p=$('point').value;if(!p){alert('Seleccione un punto de control.');return}if(activeRound.points.some(x=>x.point===p)){alert('Punto rechazado: ya fue marcado en esta ronda.');log('Marcación rechazada',`Punto repetido: ${p}`);return}const now=Date.now();const last=activeRound.points.at(-1);/* CAM-RONDAS LAB-04: intervalo mínimo ajustado de 5 a 3 minutos, según validación solicitada. */if(last && now-new Date(last.at).getTime()<3*60*1000){alert('Marcación rechazada: deben transcurrir al menos 3 minutos desde el último punto válido.');log('Marcación rechazada',`Intervalo inferior a 3 minutos: ${p}`);return}const rec={point:p,at:iso(),display:stamp(),user:currentUser,location:currentLocation?{...currentLocation}:null};activeRound.points.push(rec);log('Punto marcado',`${p} | Ronda ${activeRound.id}`);$('roundStatus').textContent=`Ronda activa: ${activeRound.name} · Último punto: ${p} · ${rec.display}`};
+$('finishRound').onclick=()=>{if(!activeRound)return;activeRound.finished=iso();activeRound.finishedDisplay=stamp();log('Fin de ronda',`${activeRound.name} | Puntos: ${activeRound.points.length}`);activeRound=null;$('startRound').disabled=false;$('markPoint').disabled=true;$('finishRound').disabled=true;$('roundStatus').textContent='Ronda finalizada.'};
+$('saveIssue').onclick=()=>{const desc=$('issueText').value.trim();if(!desc){alert('Escriba la descripción de la novedad.');return}const rec={id:'N-'+Date.now(),type:$('issueType').value,description:desc,at:iso(),display:stamp(),user:currentUser,roundId:activeRound?.id||null,roundName:activeRound?.name||'Sin ronda activa',group:activeRound?.group||$('group').value||'No especificado',point:$('point').value||'No especificado',photo:currentPhoto,originalPhoto:originalPhoto,photoStamp:currentPhoto?stamp():null,location:currentLocation?{...currentLocation}:null};state.issues.unshift(rec);log('Novedad registrada',`${rec.type} | ${desc} | Foto: ${currentPhoto?'sí':'no'}`);$('issueText').value='';$('photo').value='';currentPhoto=null;originalPhoto=null;$('photoPreview').textContent='';currentLocation=null;$('gpsStatus').textContent='Ubicación no capturada.';alert('Novedad guardada en el laboratorio.');render();};
+// LAB-03: mostrar la imagen ya sellada para que el operador pueda verificar el timestamp antes de guardar.
+$('photo').addEventListener('change',async e=>{
+ const file=e.target.files?.[0];
+ if(!file){currentPhoto=null;$('photoPreview').innerHTML='';return}
+ if(!file.type.startsWith('image/')){alert('Seleccione una imagen.');e.target.value='';return}
+ try{
+  originalPhoto=await resizedImage(file,1400,.78); currentPhoto=await stampedImage(file,stamp());
+  $('photoPreview').innerHTML='<div class="status">Fotografía preparada con sello de fecha y hora. Verifique la imagen antes de guardar.</div><img id="stampedPhotoPreview" alt="Vista previa de la fotografía con sello TECCHNEX y fecha/hora" style="display:block;width:100%;max-width:620px;max-height:520px;object-fit:contain;border:1px solid var(--line);border-radius:10px;background:#eef4f7;margin-top:10px"><p class="muted">La imagen mostrada es la copia con sello que se adjuntará a la novedad.</p>';
+  $('stampedPhotoPreview').src=currentPhoto;
+ }catch(err){currentPhoto=null;$('photoPreview').innerHTML='';alert('No se pudo procesar la imagen.')}
+});
+function resizedImage(file,max,quality){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const scale=Math.min(1,max/img.width);const c=document.createElement('canvas');c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext('2d').drawImage(img,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',quality))};img.src=reader.result};reader.readAsDataURL(file)})}
+function stampedImage(file,label){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const max=1400,scale=Math.min(1,max/img.width),w=Math.round(img.width*scale),h=Math.round(img.height*scale);const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.drawImage(img,0,0,w,h);const band=Math.max(42,Math.round(h*.09));ctx.fillStyle='rgba(18,59,93,.88)';ctx.fillRect(0,h-band,w,band);ctx.fillStyle='#fff';ctx.font=`bold ${Math.max(16,Math.round(w*.028))}px Arial`;ctx.fillText('TECCHNEX · CAM-RONDAS',14,h-band+Math.round(band*.36));ctx.font=`${Math.max(14,Math.round(w*.022))}px Arial`;ctx.fillText('Captura: '+label,14,h-band+Math.round(band*.75));resolve(c.toDataURL('image/jpeg',.88))};img.src=reader.result};reader.readAsDataURL(file)})}
+// LAB-03: capturar ubicación real del dispositivo; nunca inventar coordenadas.
+$('captureGps').onclick=()=>{
+ if(!navigator.geolocation){$('gpsStatus').textContent='Este navegador no ofrece geolocalización.';return}
+ $('gpsStatus').textContent='Solicitando permiso y ubicación GPS…';
+ navigator.geolocation.getCurrentPosition(pos=>{
+  const c=pos.coords;currentLocation={latitude:Number(c.latitude.toFixed(6)),longitude:Number(c.longitude.toFixed(6)),accuracyMeters:Math.round(c.accuracy),capturedAt:new Date(pos.timestamp).toISOString(),capturedDisplay:new Date(pos.timestamp).toLocaleString('es-CO',{hour12:false}),source:'GPS del dispositivo'};
+  $('gpsStatus').innerHTML=`Ubicación capturada: ${currentLocation.latitude}, ${currentLocation.longitude}<br>Precisión estimada: ±${currentLocation.accuracyMeters} m · ${esc(currentLocation.capturedDisplay)}<br><a target="_blank" rel="noopener" href="${mapUrl(currentLocation)}">Abrir ubicación en Google Maps</a>`;
+  $('locationIssue').textContent='La ubicación capturada se adjuntará a la próxima novedad o marcación.';
+ },err=>{const msg={1:'Permiso de ubicación denegado.',2:'Ubicación no disponible.',3:'Tiempo de espera agotado.'}[err.code]||'No se pudo capturar la ubicación.';$('gpsStatus').textContent=msg+' Pruebe desde HTTPS o localhost y revise permisos del navegador.'},{enableHighAccuracy:true,timeout:12000,maximumAge:0});
+};
+$('clearGps').onclick=()=>{currentLocation=null;$('gpsStatus').textContent='Ubicación retirada; no se adjuntará ubicación GPS.'};
+function mapUrl(loc){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(loc.latitude+','+loc.longitude)}
+$('exportExcel').onclick=()=>{
+ if(!window.XLSX){alert('No está disponible la biblioteca Excel. Compruebe la conexión a internet y vuelva a intentarlo. También puede exportar el historial CSV.');return}
+ const rounds=(state.rounds||[]), issues=(state.issues||[]);
+ const wb=XLSX.utils.book_new();
+ const summary=[['TECCHNEX · CAM-RONDAS · INFORME DE LABORATORIO'],['Generado',stamp()],['Rondas registradas',rounds.length],['Marcaciones válidas',rounds.reduce((n,r)=>n+(r.points||[]).length,0)],['Novedades registradas',issues.length],['Nota','Datos locales de este navegador; prototipo sin sincronización de servidor.']];
+ XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(summary),'Resumen');
+ const roundRows=[['ID ronda','Grupo/servicio','Nombre','Vigilante','Inicio','Fin','Estado','Puntos marcados']];
+ rounds.forEach(r=>roundRows.push([r.id,r.group,r.name,r.user,r.startedDisplay||r.started,r.finishedDisplay||r.finished||'',r.finished?'Finalizada':'En curso',(r.points||[]).length]));
+ XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(roundRows),'Rondas');
+ const markRows=[['ID ronda','Ronda','Grupo','Punto','Fecha/hora','Usuario','Latitud','Longitud','Precisión estimada (m)','Link Google Maps']];
+ rounds.forEach(r=>(r.points||[]).forEach(p=>{const l=p.location||{};markRows.push([r.id,r.name,r.group,p.point,p.display||p.at,p.user,l.latitude??'',l.longitude??'',l.accuracyMeters??'',l.latitude!=null?mapUrl(l):''])}));
+ XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(markRows),'Marcaciones');
+ const issueRows=[['ID novedad','Fecha/hora','Tipo','Descripción','Usuario','ID ronda','Ronda','Grupo','Punto','Fotografía sellada','Sello foto','Latitud','Longitud','Precisión estimada (m)','Link Google Maps']];
+ issues.forEach(i=>{const l=i.location||{};issueRows.push([i.id,i.display||i.at,i.type,i.description,i.user,i.roundId||'',i.roundName||'',i.group||'',i.point||'',i.photo?'Sí':'No',i.photoStamp||'',l.latitude??'',l.longitude??'',l.accuracyMeters??'',l.latitude!=null?mapUrl(l):''])});
+ XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(issueRows),'Novedades');
+ const eventRows=[['Fecha/hora','Evento','Usuario','Detalle'],...(state.events||[]).map(x=>[x.display||x.at,x.event,x.user,x.detail])];XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(eventRows),'Historial');
+ for(const name of wb.SheetNames){const ws=wb.Sheets[name];ws['!cols']=Array.from({length:Math.max(4,(ws['!ref']?XLSX.utils.decode_range(ws['!ref']).e.c+1:4))},(_,i)=>({wch:i===3?34:20}));}
+ XLSX.writeFile(wb,'CAM-RONDAS-LAB03-Informe.xlsx');
+};
+function render(){const ev=state.events||[];$('history').innerHTML=ev.slice(0,100).map(x=>`<tr><td>${esc(x.display||x.at)}</td><td>${esc(x.event)}</td><td>${esc(x.user)}</td><td>${esc(x.detail)}</td></tr>`).join('');$('statRounds').textContent=(state.rounds||[]).length;$('statPoints').textContent=(state.rounds||[]).reduce((n,r)=>n+(r.points||[]).length,0);$('statIssues').textContent=(state.issues||[]).length;
+ const photos=(state.issues||[]).filter(x=>x.photo);$('gallery').innerHTML=photos.length?photos.map(x=>`<article class="item" style="align-items:flex-start"><div style="width:100%"><strong>${esc(x.type)} · ${esc(x.id)}</strong><small>${esc(x.display)} · Vigilante: ${esc(x.user)} · Ronda: ${esc(x.roundName||x.roundId||'Sin ronda')} · Punto: ${esc(x.point)}</small><small>${x.location?`GPS: ${esc(x.location.latitude)}, ${esc(x.location.longitude)} · ±${esc(x.location.accuracyMeters)} m · <a target="_blank" rel="noopener" href="${mapUrl(x.location)}">Abrir en Google Maps</a>`:'Sin ubicación GPS asociada'}</small><img alt="Fotografía sellada de ${esc(x.id)}" src="${x.photo}" style="display:block;max-width:100%;max-height:360px;object-fit:contain;margin-top:10px;border:1px solid var(--line);border-radius:8px"><div class="row"><button class="secondary" onclick="downloadPhoto('${x.id}','stamped')">Descargar foto sellada</button>${x.originalPhoto?`<button class="secondary" onclick="downloadPhoto('${x.id}','original')">Descargar copia sin sello</button>`:''}</div></div></article>`).join(''):'<p class="muted">Todavía no hay fotografías guardadas en el historial.</p>';
+}
+function downloadPhoto(id,kind){const item=(state.issues||[]).find(x=>x.id===id);if(!item)return;const data=kind==='original'?item.originalPhoto:item.photo;if(!data){alert('La fotografía solicitada no está disponible.');return}const a=document.createElement('a');a.href=data;a.download=`CAM-RONDAS-${id}-${kind==='original'?'original':'sellada'}.jpg`;a.click()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('export').onclick=()=>{const lines=[['FechaHora','Evento','Usuario','Detalle'],...(state.events||[]).map(x=>[x.display||x.at,x.event,x.user,x.detail])];const csv='sep=;\\n'+lines.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\\r\\n');download(new Blob(['\\ufeff'+csv],{type:'text/csv;charset=utf-8'}),'CAM-RONDAS-LAB03-historial.csv')};
+$('backup').onclick=()=>download(new Blob([JSON.stringify({tipo:'TECCHNEX-CAM-RONDAS-LAB-03',version:3,exportado:iso(),state},null,2)],{type:'application/json'}),'CAM-RONDAS-LAB03-respaldo.json');
+$('clear').onclick=()=>{if(confirm('¿Borrar todos los datos locales de CAM-RONDAS LAB-03? Descargue un respaldo antes si lo necesita.')){state={events:[],rounds:[],issues:[]};activeRound=null;persist();log('Datos de laboratorio borrados','Se reinició el almacenamiento local')}};function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+render();
+</script>
+</body>
+</html>
