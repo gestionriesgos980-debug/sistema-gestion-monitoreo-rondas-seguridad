@@ -75,6 +75,40 @@ footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
 
 /* CAM-RONDAS-TURNO-01: identificación visual del operador activo. */
 .shift-panel{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 16px;border-left:5px solid #168653;background:#f4fbf7}.shift-info{display:flex;align-items:center;gap:10px;min-width:0}.shift-icon{display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;border-radius:10px;background:#d9f3e6;font-size:22px}.shift-info strong,.shift-info span,.shift-info small{display:block}.shift-info strong{color:#123b5d}.shift-info span{font-weight:bold;margin-top:3px}.shift-info small{color:#617582;margin-top:3px;line-height:1.35}#roundShiftButton{background:#168653;white-space:nowrap}@media(max-width:600px){.shift-panel{align-items:stretch;flex-direction:column}.shift-info{align-items:flex-start}#roundShiftButton{width:100%;margin:0}}
+
+
+/* CAM-RONDAS-IDENTIFICADOR-01: tamaño del logo */
+.tecchnex-product-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+}
+
+.tecchnex-product-brand img {
+  width: 100px;
+  height: 100px;
+  max-width: 22vw;
+  object-fit: contain;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.tecchnex-product-brand span {
+  font-size: clamp(20px, 2.5vw, 29px);
+  line-height: 1.2;
+}
+
+@media (max-width: 600px) {
+  .tecchnex-product-brand img {
+    width: 64px;
+    height: 64px;
+    max-width: 20vw;
+  }
+}
+
+
+
 </style>
 
 <link rel="icon" type="image/png" sizes="192x192" href="assets/tecchnex-icons/icon-192.png">
